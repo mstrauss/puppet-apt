@@ -1,3 +1,10 @@
+// file managed by puppet
+
+// Do "apt-get update" automatically every day
 APT::Periodic::Update-Package-Lists "1";
+
+// Disable automatic "apt-get upgrade --download-only"
 APT::Periodic::Download-Upgradeable-Packages "0";
+
+// Do "apt-get autoclean" every day
 APT::Periodic::AutocleanInterval "1";
