@@ -2,7 +2,7 @@ define apt::sources_list (
   $ensure = present,
   $source = false,
   $content = false) {
-    
+  
   if $source {
     file {"/etc/apt/sources.list.d/${name}.list":
       ensure => $ensure,

@@ -24,7 +24,7 @@ define apt::key($ensure=present, $source="", $content="") {
         notify => Exec["apt-get_update"],
       }
     }
-    
+  
     absent: {
       exec {"/usr/bin/apt-key del ${name}":
         onlyif => "apt-key list | grep -Fqe '${name}'",
