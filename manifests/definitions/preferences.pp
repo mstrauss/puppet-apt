@@ -6,7 +6,7 @@ define apt::preferences($ensure="present", $package="", $pin, $priority) {
   }
 
   # apt support preferences.d since version >= 0.7.22
-  case $lsbdistcodename {
+  case $::lsbdistcodename {
     /lucid|squeeze/ : {   
       file {"/etc/apt/preferences.d/$name":
         ensure  => $ensure,
