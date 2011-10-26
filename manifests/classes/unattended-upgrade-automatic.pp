@@ -8,7 +8,7 @@ class apt::unattended-upgrade::automatic inherits apt::unattended-upgrade {
     apt::conf{"50unattended-upgrades":
       ensure  => present,
       # ensure  => absent,
-      content => template("apt/unattended-upgrades.${lsbdistid}.erb"),
+      content => template("apt/unattended-upgrades.${::lsbdistid}.erb"),
     }
   }
 }
