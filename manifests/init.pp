@@ -1,4 +1,16 @@
-class apt {
+class apt( $autoupdate = false, $autoupdate_method = 'unattended-upgrades' ) {
+
+  if $autoupdate == true {
+    
+    case $autoupdate_method {
+      'unattended-upgrades': {
+        class { 'apt::unattended-upgrade::automatic': ensure => present }
+      }
+      default: {
+        class { 'apt::unattended-upgrade::automatic': ensure => absent }
+      }
+    }
+  }
 
   Package {
     require => Exec["apt-get_update"]
