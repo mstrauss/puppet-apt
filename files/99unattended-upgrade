@@ -1,0 +1,7 @@
+// file managed by puppet
+
+// Send unattended-upgrade mail to root
+Unattended-Upgrade::Mail "root";
+
+// Enable unattended upgrades
+APT::Periodic::Unattended-Upgrade "1";

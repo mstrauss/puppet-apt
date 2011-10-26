@@ -1,7 +1,7 @@
 class apt::unattended-upgrade::automatic inherits apt::unattended-upgrade {
   apt::conf{"99unattended-upgrade":
     ensure  => present,
-    content => "APT::Periodic::Unattended-Upgrade \"1\";\n",
+    source  => 'puppet:///modules/apt/99unattended-upgrade',
   }
 
   if $::lsbdistid {
