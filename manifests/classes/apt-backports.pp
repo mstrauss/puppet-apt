@@ -17,6 +17,9 @@ class apt::backports {
       priority => 400,
     }
     
+    # Debian Archive Automatic Signing Key (6.0/squeeze)
+    apt::key { "473041FA": }
+    
     case $::lsbdistid {
       "Debian" : {
         apt::key {"16BA136C":
