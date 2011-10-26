@@ -1,4 +1,5 @@
 // file managed by puppet
 Unattended-Upgrade::Allowed-Origins {
-        "Debian <%= lsbdistcodename %>";
+        "Debian <%= lsbdistcodename == 'lenny' ? 'oldstable' : 'stable' %>";
+<% if lsbdistcodename == 'lenny' -%>        "Debian-volatile oldstable";<% end %>
 };
