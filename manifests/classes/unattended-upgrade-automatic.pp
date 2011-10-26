@@ -4,8 +4,11 @@ class apt::unattended-upgrade::automatic inherits apt::unattended-upgrade {
     content => "APT::Periodic::Unattended-Upgrade \"1\";\n",
   }
 
-  apt::conf{"50unattended-upgrades":
-    ensure  => present,
-    content => template("apt/unattended-upgrades.${lsbdistid}.erb"),
+  if $::lsbdistid {
+    apt::conf{"50unattended-upgrades":
+      ensure  => present,
+      # ensure  => absent,
+      content => template("apt/unattended-upgrades.${lsbdistid}.erb"),
+    }
   }
 }
