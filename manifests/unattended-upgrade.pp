@@ -1,9 +1,9 @@
-class apt::unattended-upgrade {
+class apt::unattended-upgrade( $ensure = present ) {
   package {"unattended-upgrades":
-    ensure => present,
+    ensure => $ensure,
   }
   
   # for the mail-sending feature
-  package { 'heirloom-mailx': ensure => present }
+  package { 'heirloom-mailx': ensure => $ensure }
 
 }
