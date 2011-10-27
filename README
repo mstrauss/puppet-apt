@@ -11,6 +11,9 @@ It has received the following updates:
 Example Usage:
   class { 'apt': autoupdate => true, autoupdate_method => 'cron-apt' }
 
+Dependencies:
+  https://github.com/mstrauss/puppet-editfile
+
 I have this module is in regular use with
 * Debian Squeeze
 * Debian Lenny
