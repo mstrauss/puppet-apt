@@ -1,43 +1,19 @@
-= apt puppet module =
+This module is based on camptocamp's version: https://github.com/camptocamp/puppet-apt, commit 5ce178ca8aa0e8712a4aa5d37a76e7125383eee2
 
-Manages apt configuration under Debian or Ubuntu.
+It has received the following updates:
+* Fully parameterized class(es)
+* No more includes (they are evil)
+* Reverted back to class/definition autoloading, I like that much better than importing *.pp
+* Added cron-apt as a method to automatically keep your Debian system up-to-date
+  * unattended-upgrade is still available too, but i do not recommend that: it
+    does only security updates, it has too many bugs
 
-== Classes ==
+Example Usage:
+  class { 'apt': autoupdate => true, autoupdate_method => 'cron-apt' }
 
-  * apt
-  * apt::clean-cache
+I have this module is in regular use with
+* Debian Squeeze
+* Debian Lenny
+* (no Ubuntus)
 
-=== apt::clean-cache ===
-Variables
-*$apt_clean_minutes*: cronjob minutes - default uses ip_to_cron from module "common"
-*$apt_clean_hours*:   cronjob hours - default to 0
-*$apt_clean_mday*:    cronjob monthday - default uses ip_to_cron from module "common"
-
-Require:
-- module common (http://github.com/camptocamp/puppet-common)
-
-== Definitions ==
-
-  * apt::conf
-  * apt::key
-  * apt::sources_list
-
-=== apt::conf ==
-
-apt::conf{"99unattended-upgrade":
-  ensure  => present,
-  content => "APT::Periodic::Unattended-Upgrade \"1\";\n",
-}
-
-=== apt::key ===
-
-apt::key {"A37E4CF5":
-  source  => "http://dev.camptocamp.com/packages/debian/pub.key",
-}
-
-=== apt::sources_list ===
-
-apt::sources_list {"camptocamp":
-  ensure  => present,
-  content => "deb http://dev.camptocamp.com/packages/ etch puppet",
-}
+/Markus, Oct. 2011
