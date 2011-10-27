@@ -1,9 +1,9 @@
-class apt( $autoupdate = false, $autoupdate_method = 'unattended-upgrades' ) {
+class apt( $autoupdate = false, $autoupdate_method = 'unattended-upgrade' ) {
 
   if $autoupdate == true {
     
     case $autoupdate_method {
-      'unattended-upgrades': {
+      'unattended-upgrade': {
         class { 'apt::unattended-upgrade::automatic': ensure => present }
       }
       default: {
