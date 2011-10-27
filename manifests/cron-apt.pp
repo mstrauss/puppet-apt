@@ -32,4 +32,9 @@ class apt::cron-apt( $ensure = present, $mailon = 'upgrade' ) {
     content => "dist-upgrade -y -o APT::Get::Show-Upgraded=true\n",
   }
   
+  if $ensure == present {
+    # for the mail-sending feature
+    package { 'heirloom-mailx': ensure => present }
+  }
+  
 }
