@@ -5,9 +5,15 @@ class apt( $autoupdate = false, $autoupdate_method = 'unattended-upgrade' ) {
     case $autoupdate_method {
       'unattended-upgrade': {
         class { 'apt::unattended-upgrade::automatic': ensure => present }
+        class { 'apt::cron-apt': ensure => absent }
+      }
+      'cron-apt': {
+        class { 'apt::unattended-upgrade::automatic': ensure => absent }
+        class { 'apt::cron-apt': ensure => present }
       }
       default: {
         class { 'apt::unattended-upgrade::automatic': ensure => absent }
+        class { 'apt::cron-apt': ensure => absent }
       }
     }
   }
