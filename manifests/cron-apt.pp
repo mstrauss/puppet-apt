@@ -29,7 +29,7 @@ class apt::cron-apt( $ensure = present, $mailon = 'upgrade' ) {
   
   # enable dist-upgrade action
   file { '/etc/cron-apt/action.d/5-upgrade':
-    content => "dist-upgrade-y -o APT::Get::Show-Upgraded=true\n",
+    content => "dist-upgrade -y -o APT::Get::Show-Upgraded=true\n",
   }
   
 }
