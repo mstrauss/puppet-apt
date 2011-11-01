@@ -13,18 +13,18 @@ class apt::cron-apt( $ensure = present, $mailon = 'upgrade' ) {
              mode => 644, owner => root, group => root }
   
   editfile { 'configure MAILON setting':
-    path    => '/etc/cron-apt/config',
-    replace => '^#?\s*MAILON=',
-    line    => "MAILON=\"${mailon}\"",
+    path   => '/etc/cron-apt/config',
+    match  => '^#?\s*MAILON=',
+    ensure => "MAILON=\"${mailon}\"",
   }
 
   # download files but without output
   # we replace: dist-upgrade -d -y -o APT::Get::Show-Upgraded=true
   # with: dist-upgrade -d -y
   editfile { '3-download':
-    path    => '/etc/cron-apt/action.d/3-download',
-    replace => '^dist-upgrade',
-    line    => 'dist-upgrade -d -y',
+    path   => '/etc/cron-apt/action.d/3-download',
+    match  => '^dist-upgrade',
+    ensure => 'dist-upgrade -d -y',
   }
   
   # enable dist-upgrade action
