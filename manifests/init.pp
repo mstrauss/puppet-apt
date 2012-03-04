@@ -1,5 +1,31 @@
-class apt( $autoupdate = false, $autoupdate_method = 'unattended-upgrade' ) {
+# $cache: ip and port of apt-cacher-ng, e.g. '10.1.0.12:3142'
+class apt( $autoupdate = false, $autoupdate_method = 'unattended-upgrade', $cache = undef ) {
 
+  if( defined( editfile ) ) {
+    # without editfile we do not touch the existing config
+    apt::conf { '90aptcache':
+        content => "// managed by puppet
+    Acquire::http { Proxy \"http://${cache}\"; };
+    ",
+        ensure => $cache ? {
+          undef   => absent,
+          default => present,
+        },
+      }
+  }
+  
+  if $cache != undef {
+    $_cache = "${cache}/"
+    # need to make sure, that we do not use the proxy in the sources.list file (e.g. from unattended setup!)
+    editfile { 'clean sources.list':
+      path   => '/etc/apt/sources.list',
+      exact  => true,
+      match  => $_cache,
+      match_is_string => true,
+      ensure => absent,
+    }
+  }
+  
   if $autoupdate == true {
     
     case $autoupdate_method {
